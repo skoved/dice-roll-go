@@ -13,11 +13,13 @@ import (
 	"strings"
 )
 
+// Represent a roll of the dice. Example: 2d6
 type roll struct {
 	numDice int64
 	sides   int64
 }
 
+// Calculate the roll of r
 func (r roll) Roll() *big.Int {
 	var i int64 = 0
 	sum := big.NewInt(0)
@@ -34,7 +36,7 @@ func (r roll) Roll() *big.Int {
 	return sum
 }
 
-// Return the ROLL from stdin
+// Return the ROLL(s) from stdin
 func rollFromStdin() []roll {
 	fmt.Println("Need to implement reading roll from stdin")
 	return []roll{}

@@ -13,7 +13,6 @@ const stdin argMode = 0
 
 // Returns the ROLL. It detects if the ROLL was provided as an arg or if it is passed through stdin
 func getRoll() []roll {
-
 	if argMode(flag.NArg()) == stdin {
 		return rollFromStdin()
 	}
