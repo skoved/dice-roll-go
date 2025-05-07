@@ -29,7 +29,7 @@ func (r roll) Roll() *big.Int {
 			fmt.Fprintf(os.Stderr, "Could not roll the dice\nsides: %d, number of dice: %d\nError: %s\n", r.sides, r.numDice, err)
 			os.Exit(1)
 		}
-		// range for val is 0 to r.sides-1 but we want 1 - r.sides
+		// range for val is 0 to r.sides-1 but we want 1 to r.sides
 		val.Add(val, big.NewInt(1))
 		sum.Add(sum, val)
 	}
