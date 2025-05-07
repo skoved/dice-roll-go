@@ -52,7 +52,7 @@ func main() {
 		helpInfo()
 	}
 
-	rolls := getRoll()
+	rolls := getRolls()
 
 	for _, r := range rolls {
 		fmt.Println(r.Roll())

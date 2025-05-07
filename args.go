@@ -11,8 +11,8 @@ type argMode int
 
 const stdin argMode = 0
 
-// Returns the ROLL. It detects if the ROLL was provided as an arg or if it is passed through stdin
-func getRoll() []roll {
+// Returns the ROLL(s). It detects if the ROLL(s) were provided as an arg or if they were passed through stdin
+func getRolls() []roll {
 	if argMode(flag.NArg()) == stdin {
 		return rollFromStdin()
 	}
