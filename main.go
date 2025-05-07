@@ -34,34 +34,25 @@ func init() {
 	flag.BoolVar(&help, "h", defaultHelp, helpUsage+"(shorthand)")
 }
 
-// argModes are enums that represent where the ROLL instruction can be found. 0 means ROLL will be provided in stdin.
+// argModes are enums that represent where the ROLL instruction can be found. 0 means ROLL will be provided in stdin. >=
 // 1 means that ROLL was passed as an argument to the command. The value for argMode should be compared to flag.NArg().
-// If the returned value of flag.NArg() does not match an argMode, then the command was called incorrectly.
 type argMode int
 
-const (
-	stdin argMode = iota
-	cmdArg
-)
+const stdin argMode = 0
 
 // Returns the argMode for the invocation of roll.
 func getArgMode() argMode {
 	return argMode(flag.NArg())
 }
 
+// Returns the ROLL. It detects if the ROLL was provided as an arg or if it is passed through stdin
 func (a argMode) getRoll() string {
 	switch a {
 	case stdin:
 		return rollFromStdin()
-	case cmdArg:
-		return rollFromArg()
 	default:
-		fmt.Fprintln(flag.CommandLine.Output(), os.Args[0], "expects only 1 ROLL.", flag.NArg(), "ROLLs provided")
-		fmt.Fprintln(flag.CommandLine.Output(), "Use -h for help.")
-		os.Exit(1)
+		return rollFromArg()
 	}
-
-	return ""
 }
 
 // Prints the help/usage info and exits with status code 0
