@@ -8,6 +8,9 @@
 *.so
 *.dylib
 
+# default linux binary name
+roll
+
 # Test binary, built with `go test -c`
 *.test
 
