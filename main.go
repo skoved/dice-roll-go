@@ -34,6 +34,17 @@ func init() {
 	flag.BoolVar(&help, "h", defaultHelp, helpUsage+"(shorthand)")
 }
 
+// Prints the help/usage info and exits with status code 0
+func helpInfo() {
+	fmt.Fprintf(flag.CommandLine.Output(), "Usage: %s [OPTIONS]... [ROLL]\n", os.Args[0])
+	fmt.Fprintln(flag.CommandLine.Output(), "Roll the dice from ROLL.")
+	fmt.Fprintln(flag.CommandLine.Output(), "Example: roll 2d6")
+	fmt.Fprintln(flag.CommandLine.Output(), "Rolls a six sided dice two times and adds the results together.")
+	fmt.Fprintf(flag.CommandLine.Output(), "\n")
+	flag.PrintDefaults()
+	os.Exit(0)
+}
+
 // argModes are enums that represent where the ROLL instruction can be found. 0 means ROLL will be provided in stdin. >=
 // 1 means that ROLL was passed as an argument to the command. The value for argMode should be compared to flag.NArg().
 type argMode int
@@ -53,17 +64,6 @@ func (a argMode) getRoll() string {
 	default:
 		return rollFromArg()
 	}
-}
-
-// Prints the help/usage info and exits with status code 0
-func helpInfo() {
-	fmt.Fprintf(flag.CommandLine.Output(), "Usage: %s [OPTIONS]... [ROLL]\n", os.Args[0])
-	fmt.Fprintln(flag.CommandLine.Output(), "Roll the dice from ROLL.")
-	fmt.Fprintln(flag.CommandLine.Output(), "Example: roll 2d6")
-	fmt.Fprintln(flag.CommandLine.Output(), "Rolls a six sided dice two times and adds the results together.")
-	fmt.Fprintf(flag.CommandLine.Output(), "\n")
-	flag.PrintDefaults()
-	os.Exit(0)
 }
 
 // Return the ROLL from stdin
