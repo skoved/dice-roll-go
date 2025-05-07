@@ -45,38 +45,6 @@ func helpInfo() {
 	os.Exit(0)
 }
 
-// argModes are enums that represent where the ROLL instruction can be found. 0 means ROLL will be provided in stdin. >=
-// 1 means that ROLL was passed as an argument to the command. The value for argMode should be compared to flag.NArg().
-type argMode int
-
-const stdin argMode = 0
-
-// Returns the argMode for the invocation of roll.
-func getArgMode() argMode {
-	return argMode(flag.NArg())
-}
-
-// Returns the ROLL. It detects if the ROLL was provided as an arg or if it is passed through stdin
-func (a argMode) getRoll() string {
-	switch a {
-	case stdin:
-		return rollFromStdin()
-	default:
-		return rollFromArg()
-	}
-}
-
-// Return the ROLL from stdin
-func rollFromStdin() string {
-	fmt.Println("Need to implement reading roll from stdin")
-	return ""
-}
-
-func rollFromArg() string {
-	fmt.Println("Need to implement parsing roll from cmd arg")
-	return ""
-}
-
 func main() {
 	flag.Parse()
 
@@ -84,8 +52,11 @@ func main() {
 		helpInfo()
 	}
 
-	mode := getArgMode()
-	mode.getRoll()
+	rolls := getRolls()
+
+	for _, r := range rolls {
+		fmt.Println(r.Roll())
+	}
 
 	fmt.Println("drop:", numDrop)
 	fmt.Println("repeat:", numRepeat)
