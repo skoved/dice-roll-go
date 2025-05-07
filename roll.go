@@ -4,13 +4,16 @@
 package main
 
 import (
+	"bytes"
 	"crypto/rand"
 	"flag"
 	"fmt"
+	"io"
 	"math/big"
 	"os"
 	"strconv"
 	"strings"
+	"unicode"
 )
 
 // Represent a roll of the dice. Example: 2d6
@@ -38,8 +41,61 @@ func (r roll) Roll() *big.Int {
 
 // Return the ROLL(s) from stdin
 func rollFromStdin() []roll {
-	fmt.Println("Need to implement reading roll from stdin")
-	return []roll{}
+	rolls := []roll{}
+	input, err := io.ReadAll(os.Stdin)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Could not read input from stdin:", err)
+	}
+
+	var (
+		rollBuf   bytes.Buffer
+		isNumDice = true
+		tmpRoll   roll
+	)
+	for i, b := range input {
+		char := rune(b)
+		if unicode.IsDigit(char) {
+			rollBuf.WriteByte(b)
+		} else if unicode.IsSpace(char) {
+			if isNumDice {
+				tmpRoll.numDice, err = strconv.ParseInt(rollBuf.String(), 10, 64)
+				if err != nil {
+					fmt.Fprintln(os.Stderr, "Could not read dice roll", i, err)
+					os.Exit(1)
+				}
+				isNumDice = false
+				rollBuf.Reset()
+			} else {
+				tmpRoll.sides, err = strconv.ParseInt(rollBuf.String(), 10, 64)
+				if err != nil {
+					fmt.Fprintln(os.Stderr, "Could not read dice roll", i, err)
+					os.Exit(1)
+				}
+				// toggle between numDice and sidesBuf
+				isNumDice = true
+				rollBuf.Reset()
+				rolls = append(rolls, tmpRoll)
+			}
+		} else if char == 'd' {
+			// d can only come after numDice
+			if !isNumDice {
+				fmt.Fprintln(os.Stderr, "Invalid ROLL. Check 'd' at position", i)
+				os.Exit(1)
+			}
+			tmpRoll.numDice, err = strconv.ParseInt(rollBuf.String(), 10, 64)
+			if err != nil {
+				fmt.Fprintln(os.Stderr, "Could not read dice roll", i, err)
+				os.Exit(1)
+			}
+			isNumDice = false
+			rollBuf.Reset()
+		} else {
+			fmt.Fprintln(os.Stderr, "Character", char, "is not allowed in a ROLL at position", i)
+			os.Exit(1)
+		}
+	}
+
+	return rolls
 }
 
 // Return the ROLL(s) from the command line args
@@ -56,7 +112,7 @@ func rollsFromArg() []roll {
 		}
 		numDice, err := strconv.ParseInt(num.String(), 10, 64)
 		if err != nil {
-			fmt.Fprintln(os.Stderr, "Could not read dice roll ", i, err)
+			fmt.Fprintln(os.Stderr, "Could not read dice roll", i, err)
 			os.Exit(1)
 		}
 
@@ -69,7 +125,7 @@ func rollsFromArg() []roll {
 		}
 		sides, err := strconv.ParseInt(num.String(), 10, 64)
 		if err != nil {
-			fmt.Fprintln(os.Stderr, "Could not read dice roll ", i, err)
+			fmt.Fprintln(os.Stderr, "Could not read dice roll", i, err)
 			os.Exit(1)
 		}
 
