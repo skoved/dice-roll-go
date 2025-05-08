@@ -29,7 +29,13 @@ func (r roll) Roll() *big.Int {
 	for ; i < r.numDice; i++ {
 		val, err := rand.Int(rand.Reader, big.NewInt(r.sides))
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "Could not roll the dice\nsides: %d, number of dice: %d\nError: %s\n", r.sides, r.numDice, err)
+			fmt.Fprintf(
+				os.Stderr,
+				"Could not roll the dice\nsides: %d, number of dice: %d\nError: %s\n",
+				r.sides,
+				r.numDice,
+				err,
+			)
 			os.Exit(1)
 		}
 		// range for val is 0 to r.sides-1 but we want 1 to r.sides
