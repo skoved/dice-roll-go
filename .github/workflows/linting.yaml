@@ -41,7 +41,8 @@ jobs:
         uses: karancode/yamllint-github-action@master
         with:
           yamllint_comment: true
-        env: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   golangci-lint:
     name: Golangci-lint
     runs-on: ubuntu-latest
