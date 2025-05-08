@@ -25,7 +25,11 @@ jobs:
         run: go mod tidy
       - name: Fail if There Are Changes
         run: |
-          git diff --exit-code go.sum
+          set -x
+          # check if go.sum exists
+          if [ -f go.sum ]; then
+            git diff --exit-code go.sum
+          fi
           git diff --exit-code go.mod
   yamllint:
     name: Yaml Lint
