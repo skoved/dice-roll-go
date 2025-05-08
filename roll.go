@@ -40,7 +40,7 @@ func (r roll) Roll() *big.Int {
 }
 
 // Return the ROLL(s) from stdin
-func rollFromStdin() []roll {
+func rollsFromStdin() []roll {
 	rolls := []roll{}
 	input, err := io.ReadAll(os.Stdin)
 	if err != nil {
