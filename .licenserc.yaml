@@ -1,0 +1,15 @@
+# Copyright skoved
+# SPDX-License-Identifier: MIT
+---
+header:
+  license:
+    spdx-id: MIT
+    copyright-owner: skoved
+
+  paths-ignore:
+    - 'dist'
+    - 'licenses'
+    - 'LICENSE'
+    - 'NOTICE'
+
+  comment: on-failure

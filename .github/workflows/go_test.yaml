@@ -1,0 +1,32 @@
+# Copyright skoved
+# SPDX-License-Identifier: MIT
+---
+name: go_test
+run-name: Unit Tests (go)
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+permissions:
+  contents: read
+  pull-requests: read
+jobs:
+  gotest:
+    name: "Golang Testing"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: stable
+      - name: Display Go Version
+        run: go version
+      - name: Compile Go Code
+        run: go build -v ./...
+      - name: Test Go Code
+        run: go test -v ./...
