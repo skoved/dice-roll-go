@@ -9,7 +9,7 @@ on:
       - main
 permissions:
   contents: read
-  pull-requests: read
+  pull-requests: write
 jobs:
   go-mod-tidy:
     name: Go Mod Tidy
@@ -41,6 +41,7 @@ jobs:
         uses: karancode/yamllint-github-action@master
         with:
           yamllint_comment: true
+          yamllint_strict: true
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   golangci-lint:
