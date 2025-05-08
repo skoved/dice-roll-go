@@ -1,0 +1,21 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "osvVulnerabilityAlerts": true,
+  "semanticCommits": "disabled",
+  "postUpdateOptions": [
+    "gomodTidy"
+  ],
+  "automerge": true,
+  "packageRules": [
+    {
+      "matchPackageNames": ["go"],
+      "matchUpdateTypes": ["major", "minor"],
+      "automerge": false
+    },
+    {
+      "matchPackageNames": ["!go"],
+      "matchUpdateTypes": ["major", "digest", "lockFileMaintenance", "rollback", "bump", "replacement", "pin", "pinDigest"],
+      "automerge": true
+    }
+  ]
+}
