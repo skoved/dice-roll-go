@@ -71,31 +71,31 @@ linters:
         - asmdecl
         - assign
         - atomic
-        - atomicalign # not default
+        - atomicalign  # not default
         - bools
         - buildtag
         - cgocall
         - composites
         - copylocks
-        - deepequalerrors # not default
+        - deepequalerrors  # not default
         - defers
         - directive
         - errorsas
-        - fieldalignment # not default
+        - fieldalignment  # not default
         - framepointer
         - httpresponse
         - ifaceassert
         - loopclosure
         - lostcancel
         - nilfunc
-        - nilness # not default
+        - nilness  # not default
         - printf
-        - reflectvaluecompare # not default
-        - shadow # not default
+        - reflectvaluecompare  # not default
+        - shadow  # not default
         - shift
         - sigchanyzer
         - slog
-        - sortslice # not default
+        - sortslice  # not default
         - stdmethods
         - stringintconv
         - structtag
@@ -106,7 +106,7 @@ linters:
         - unreachable
         - unsafeptr
         - unusedresult
-        - unusedwrite # not default
+        - unusedwrite  # not default
         - waitgroup
     iface:
       enable:
