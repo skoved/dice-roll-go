@@ -65,7 +65,11 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
-      - name: Check Licenses
-        uses: apache/skywalking-eyes/header@v0.7.0
+      - name: Install Node
+        uses: actions/setup-node@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          node-version: latest
+      - name: Install License Checker
+        run: npm install --global @kt3k/license-checker
+      - name: Run License Checker
+        run: license_checker
