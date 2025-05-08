@@ -11,5 +11,8 @@ header:
     - 'licenses'
     - 'LICENSE'
     - 'NOTICE'
+    - 'go.mod'
+    - 'go.sum'
+    - '*.md'
 
   comment: on-failure
