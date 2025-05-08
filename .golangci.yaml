@@ -130,4 +130,3 @@ formatters:
     goimports:
       local-prefixes:
         - github.com/skoved/roll
-
