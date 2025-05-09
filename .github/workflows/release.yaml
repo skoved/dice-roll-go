@@ -22,6 +22,7 @@ jobs:
           go-version: stable
       - name: Test
         run: |
+          set -x
           go build -o roll -v ./...
           go test -v ./...
           rm roll
