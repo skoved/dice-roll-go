@@ -36,3 +36,5 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish Go Module
+        run: GOPROXY=proxy.go.org go list -m github.com/${GITHUB_REPOSITORY}@${GITHUB_REF_NAME}
