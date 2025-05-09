@@ -10,6 +10,7 @@
 
 # default linux binary name
 roll
+dice-roll-go
 
 # Test binary, built with `go test -c`
 *.test
