@@ -20,6 +20,11 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: stable
+      - name: Test
+        run: |
+          go build -o roll -v ./...
+          go test -v ./...
+          rm roll
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
         with:
