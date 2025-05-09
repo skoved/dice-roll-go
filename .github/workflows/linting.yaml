@@ -4,9 +4,15 @@
 name: Linting
 run-name: Linting
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref_name != 'main' }}
 permissions:
   contents: read
   pull-requests: write

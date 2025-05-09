@@ -1,11 +1,13 @@
 # Copyright skoved
 # SPDX-License-Identifier: MIT
 ---
-name: release
+name: Release
 on:
   push:
     tags:
       - "v*"
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
 permissions:
   contents: write
 jobs:
