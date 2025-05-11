@@ -52,12 +52,9 @@ func main() {
 		helpInfo()
 	}
 
-	rolls := getRolls()
+	roller := newRoller(getRolls(), repeatRollerOpt(numRepeat))
+	roller.roll()
 
-	for _, r := range rolls {
-		fmt.Println(r.Roll())
-	}
-
-	fmt.Println("drop:", numDrop)
-	fmt.Println("repeat:", numRepeat)
+	fmt.Fprintln(os.Stderr, "drop:", numDrop)
+	fmt.Fprintln(os.Stderr, "repeat:", numRepeat)
 }
