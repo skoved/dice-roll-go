@@ -42,18 +42,13 @@ archives:
       - goos: windows
         formats: [zip]
 
-source:
-  enabled: true
-  name_template: "Source Code"
-  format: tar.gz
-  prefix_template: "{{ .ProjectName }}-{{ .Version }}/"
-
 changelog:
   sort: asc
   filters:
     exclude:
       - "^docs:"
       - "^test:"
+      - "^Merge pull request"
 
 release:
   footer: >-
