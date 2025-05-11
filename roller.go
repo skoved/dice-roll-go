@@ -23,9 +23,9 @@ func defaultPrinter(val *big.Int) {
 }
 
 type roller struct {
+	print    printer
 	rolls    []roll
 	numRolls uint
-	print    printer
 }
 
 func newRoller(rolls []roll, opts ...rolleropt) roller {
