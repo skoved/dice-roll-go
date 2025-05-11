@@ -12,7 +12,7 @@ type rolleropt func(*roller)
 
 func repeatRollerOpt(repeats uint) rolleropt {
 	return func(r *roller) {
-		r.numRolls = repeats
+		r.numRolls = repeats + 1
 	}
 }
 
