@@ -12,7 +12,7 @@ import (
 const (
 	defaultNumDrop   = 0
 	dropUsage        = "the number of dice from your roll that should be dropped"
-	defaultNumRepeat = 0
+	defaultNumRepeat = 1
 	repeatUsage      = "the number of times to repeat your dice roll"
 	defaultHelp      = false
 	helpUsage        = "print help info"
@@ -52,7 +52,7 @@ func main() {
 		helpInfo()
 	}
 
-	roller := newRoller(getRolls(), repeatRollerOpt(numRepeat))
+	roller := newRoller(getRolls(), repeatRollerOpt(numRepeat), dropRollerOpt(numDrop))
 	roller.roll()
 
 	fmt.Fprintln(os.Stderr, "drop:", numDrop)

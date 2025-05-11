@@ -16,6 +16,12 @@ func repeatRollerOpt(repeats uint) rolleropt {
 	}
 }
 
+func dropRollerOpt(drops uint) rolleropt {
+	return func(r *roller) {
+		r.numDrops = drops
+	}
+}
+
 type printer func(*big.Int)
 
 func defaultPrinter(val *big.Int) {
@@ -26,13 +32,15 @@ type roller struct {
 	print    printer
 	rolls    []roll
 	numRolls uint
+	numDrops uint
 }
 
 func newRoller(rolls []roll, opts ...rolleropt) roller {
 	r := roller{
+		print:    defaultPrinter,
 		rolls:    rolls,
 		numRolls: 1,
-		print:    defaultPrinter,
+		numDrops: 0,
 	}
 	for _, opt := range opts {
 		opt(&r)
@@ -44,7 +52,7 @@ func newRoller(rolls []roll, opts ...rolleropt) roller {
 func (r roller) roll() {
 	for _, roll := range r.rolls {
 		for range r.numRolls {
-			r.print(roll.Roll())
+			r.print(roll.Roll(dropRollOpt(int(r.numDrops))))
 		}
 	}
 }
