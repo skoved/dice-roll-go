@@ -12,22 +12,22 @@ import (
 const (
 	defaultNumDrop   = 0
 	dropUsage        = "the number of dice from your roll that should be dropped"
-	defaultNumRepeat = 0
+	defaultNumRepeat = 1
 	repeatUsage      = "the number of times to repeat your dice roll"
 	defaultHelp      = false
 	helpUsage        = "print help info"
 )
 
 var (
-	numDrop   uint
+	numDrop   int
 	numRepeat uint
 	help      bool
 )
 
 // create command flags
 func init() {
-	flag.UintVar(&numDrop, "drop", defaultNumDrop, dropUsage)
-	flag.UintVar(&numDrop, "d", defaultNumDrop, dropUsage+"(shorthand)")
+	flag.IntVar(&numDrop, "drop", defaultNumDrop, dropUsage)
+	flag.IntVar(&numDrop, "d", defaultNumDrop, dropUsage+"(shorthand)")
 	flag.UintVar(&numRepeat, "repeat", defaultNumRepeat, repeatUsage)
 	flag.UintVar(&numRepeat, "r", defaultNumRepeat, repeatUsage+"(shorthand)")
 	flag.BoolVar(&help, "help", defaultHelp, helpUsage)
@@ -45,6 +45,14 @@ func helpInfo() {
 	os.Exit(0)
 }
 
+// If the drop flag has a negative value, exits with code 1
+func ValidateFlagValues() {
+	if numDrop < 0 {
+		fmt.Fprintln(os.Stderr, "--drop cannot be negative number")
+		os.Exit(1)
+	}
+}
+
 func main() {
 	flag.Parse()
 
@@ -52,7 +60,7 @@ func main() {
 		helpInfo()
 	}
 
-	roller := newRoller(getRolls(), repeatRollerOpt(numRepeat))
+	roller := newRoller(getRolls(), repeatRollerOpt(numRepeat), dropRollerOpt(numDrop))
 	roller.roll()
 
 	fmt.Fprintln(os.Stderr, "drop:", numDrop)

@@ -16,6 +16,25 @@ import (
 	"unicode"
 )
 
+type rollOpt func(*big.Int) []*big.Int
+
+func dropRollOpt(drops int) rollOpt {
+	mins := make([]*big.Int, 0, drops)
+	return func(val *big.Int) []*big.Int {
+		if len(mins) < drops {
+			mins = append(mins, val)
+		} else {
+			for i, m := range mins {
+				if val.Cmp(m) == -1 {
+					mins[i] = val
+					break
+				}
+			}
+		}
+		return mins
+	}
+}
+
 // Represent a roll of the dice. Example: 2d6
 type roll struct {
 	numDice int64
@@ -23,8 +42,11 @@ type roll struct {
 }
 
 // Calculate the roll of r
-func (r roll) Roll() *big.Int {
-	var i int64 = 0
+func (r roll) Roll(opts ...rollOpt) *big.Int {
+	var (
+		i    int64 = 0
+		mins []*big.Int
+	)
 	sum := big.NewInt(0)
 	for ; i < r.numDice; i++ {
 		val, err := rand.Int(rand.Reader, big.NewInt(r.sides))
@@ -40,7 +62,13 @@ func (r roll) Roll() *big.Int {
 		}
 		// range for val is 0 to r.sides-1 but we want 1 to r.sides
 		val.Add(val, big.NewInt(1))
+		for _, opt := range opts {
+			mins = opt(val)
+		}
 		sum.Add(sum, val)
+	}
+	for _, m := range mins {
+		sum.Sub(sum, m)
 	}
 	return sum
 }
