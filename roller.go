@@ -16,7 +16,7 @@ func repeatRollerOpt(repeats uint) rolleropt {
 	}
 }
 
-func dropRollerOpt(drops uint) rolleropt {
+func dropRollerOpt(drops int) rolleropt {
 	return func(r *roller) {
 		r.numDrops = drops
 	}
@@ -32,7 +32,7 @@ type roller struct {
 	print    printer
 	rolls    []roll
 	numRolls uint
-	numDrops uint
+	numDrops int
 }
 
 func newRoller(rolls []roll, opts ...rolleropt) roller {
@@ -52,7 +52,7 @@ func newRoller(rolls []roll, opts ...rolleropt) roller {
 func (r roller) roll() {
 	for _, roll := range r.rolls {
 		for range r.numRolls {
-			r.print(roll.Roll(dropRollOpt(int(r.numDrops))))
+			r.print(roll.Roll(dropRollOpt(r.numDrops)))
 		}
 	}
 }

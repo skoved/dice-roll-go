@@ -19,15 +19,15 @@ const (
 )
 
 var (
-	numDrop   uint
+	numDrop   int
 	numRepeat uint
 	help      bool
 )
 
 // create command flags
 func init() {
-	flag.UintVar(&numDrop, "drop", defaultNumDrop, dropUsage)
-	flag.UintVar(&numDrop, "d", defaultNumDrop, dropUsage+"(shorthand)")
+	flag.IntVar(&numDrop, "drop", defaultNumDrop, dropUsage)
+	flag.IntVar(&numDrop, "d", defaultNumDrop, dropUsage+"(shorthand)")
 	flag.UintVar(&numRepeat, "repeat", defaultNumRepeat, repeatUsage)
 	flag.UintVar(&numRepeat, "r", defaultNumRepeat, repeatUsage+"(shorthand)")
 	flag.BoolVar(&help, "help", defaultHelp, helpUsage)
@@ -43,6 +43,14 @@ func helpInfo() {
 	fmt.Fprintf(flag.CommandLine.Output(), "\n")
 	flag.PrintDefaults()
 	os.Exit(0)
+}
+
+// If the drop flag has a negative value, exits with code 1
+func ValidateFlagValues() {
+	if numDrop < 0 {
+		fmt.Fprintln(os.Stderr, "--drop cannot be negative number")
+		os.Exit(1)
+	}
 }
 
 func main() {
