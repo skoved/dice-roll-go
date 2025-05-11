@@ -12,7 +12,7 @@ import (
 const (
 	defaultNumDrop   = 0
 	dropUsage        = "the number of dice from your roll that should be dropped"
-	defaultNumRepeat = 1
+	defaultNumRepeat = 0
 	repeatUsage      = "the number of times to repeat your dice roll"
 	defaultHelp      = false
 	helpUsage        = "print help info"
@@ -46,9 +46,9 @@ func helpInfo() {
 }
 
 // If the drop flag has a negative value, exits with code 1
-func ValidateFlagValues() {
+func validateFlagValues() {
 	if numDrop < 0 {
-		fmt.Fprintln(os.Stderr, "--drop cannot be negative number")
+		fmt.Fprintln(os.Stderr, "--drop cannot be a negative number")
 		os.Exit(1)
 	}
 }
@@ -56,13 +56,12 @@ func ValidateFlagValues() {
 func main() {
 	flag.Parse()
 
+	validateFlagValues()
+
 	if help {
 		helpInfo()
 	}
 
 	roller := newRoller(getRolls(), repeatRollerOpt(numRepeat), dropRollerOpt(numDrop))
 	roller.roll()
-
-	fmt.Fprintln(os.Stderr, "drop:", numDrop)
-	fmt.Fprintln(os.Stderr, "repeat:", numRepeat)
 }
