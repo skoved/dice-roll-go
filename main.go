@@ -16,12 +16,16 @@ const (
 	repeatUsage      = "the number of times to repeat your dice roll"
 	defaultHelp      = false
 	helpUsage        = "print help info"
+	defaultVersionF  = false
+	helpVersionF     = "print version"
 )
 
 var (
 	numDrop   int
 	numRepeat uint
 	help      bool
+	versionF  bool
+	version   string
 )
 
 // create command flags
@@ -32,6 +36,8 @@ func init() {
 	flag.UintVar(&numRepeat, "r", defaultNumRepeat, repeatUsage+"(shorthand)")
 	flag.BoolVar(&help, "help", defaultHelp, helpUsage)
 	flag.BoolVar(&help, "h", defaultHelp, helpUsage+"(shorthand)")
+	flag.BoolVar(&versionF, "version", defaultVersionF, helpVersionF)
+	flag.BoolVar(&versionF, "v", defaultVersionF, helpVersionF+"(shorthand)")
 }
 
 // Prints the help/usage info and exits with status code 0
@@ -55,6 +61,15 @@ func validateFlagValues() {
 
 func main() {
 	flag.Parse()
+
+	if versionF {
+		fmt.Println(os.Args[0], "version", version)
+		fmt.Println("Copyright (C) 2025 Sam Koved")
+		fmt.Println("License MIT <https://github.com/skoved/dice-roll-go/blob/main/LICENSE>")
+		fmt.Println()
+		fmt.Println("Written by Sam Koved <https://github.com/skoved>")
+		os.Exit(0)
+	}
 
 	validateFlagValues()
 
