@@ -1,0 +1,86 @@
+'\" t
+.\"     Title: dice-roll-go
+.\"    Author: Sam Koved
+.\" Generator: Asciidoctor 2.0.20
+.\"      Date: 2025-05-12
+.\"    Manual: DICE-ROLL-GO
+.\"    Source: DICE-ROLL-GO
+.\"  Language: English
+.\"
+.TH "DICE\-ROLL\-GO" "1" "2025-05-12" "DICE\-ROLL\-GO" "DICE\-ROLL\-GO"
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.ss \n[.ss] 0
+.nh
+.ad l
+.de URL
+\fI\\$2\fP <\\$1>\\$3
+..
+.als MTO URL
+.if \n[.g] \{\
+.  mso www.tmac
+.  am URL
+.    ad l
+.  .
+.  am MTO
+.    ad l
+.  .
+.  LINKSTYLE blue R < >
+.\}
+.SH "NAME"
+dice-roll-go \- simulates rolling different kinds of dice
+.SH "SYNOPSIS"
+.sp
+\fBdice\-roll\-go\fP [\fIOPTION\fP]... \fIROLL\fP...
+.SH "DESCRIPTION"
+.sp
+\fBdice\-roll\-go\fP simulates ROLL by using a cryptographically secure random number generator.
+.br
+A ROLL is written in dice notation.
+.SH "OPTIONS"
+.sp
+\fB\-r, \-repeat, \-\-repeat\fP
+.RS 4
+Repeat ROLL a specified number of times.
+.RE
+.sp
+\fB\-d, \-drop, \-\-drop\fP
+.RS 4
+Drop the lowest specified number of dice rolls from ROLL. The specified number must be less than the number of dice
+rolls in ROLL.
+.RE
+.sp
+\fB\-v, \-version, \-\-version\fP
+.RS 4
+Print the version info.
+.RE
+.SH "DICE NOTATION"
+.sp
+Dice Notation describes what kind of die will be roll a specified number of times. It is written as:
+.br
+\fB<number of rolls>d<number of sides the die has>\fP
+.SH "BUGS"
+.sp
+If you encounter a bug with this software please open an issue on Github
+.URL "https://github.com/skoved/dice\-roll\-go/issues" "" ""
+.SH "EXAMPLE"
+.sp
+The following example rolls an eight sided die twice.
+.br
+$ dice\-roll\-go 1d8
+.sp
+The following example rolls two six sided dice and drops the lowest roll.
+.br
+$ dice\-roll\-go \-\-drop 1 2d6
+.sp
+The following example shows how to roll a four sided die once and repeat it three times.
+.br
+$ dice\-roll\-go \-\-repeat 3 1d4
+.SH "COPYING"
+.sp
+Copyright \(co 2025 Sam Koved.
+.br
+Free use of this software is granted under the terms of the MIT License.
+.SH "AUTHOR"
+.sp
+Sam Koved

@@ -1,0 +1,57 @@
+= dice-roll-go(1)
+Sam Koved
+:doctype: manpage
+:manmanual: DICE-ROLL-GO
+:mansource: DICE-ROLL-GO
+:man-linkstyle: pass:[blue R < >]
+
+== Name
+
+dice-roll-go - simulates rolling different kinds of dice
+
+== Synopsis
+
+*dice-roll-go* [_OPTION_]... _ROLL_...
+
+== Description
+
+*dice-roll-go* simulates ROLL by using a cryptographically secure random number generator. +
+A ROLL is written in dice notation.
+
+== Options
+
+*-r, -repeat, --repeat*::
+  Repeat ROLL a specified number of times.
+
+*-d, -drop, --drop*::
+  Drop the lowest specified number of dice rolls from ROLL. The specified number must be less than the number of dice
+  rolls in ROLL.
+
+*-v, -version, --version*::
+  Print the version info.
+
+== Dice Notation
+
+Dice Notation describes what kind of die will be roll a specified number of times. It is written as: +
+*<number of rolls>d<number of sides the die has>*
+
+== Bugs
+
+If you encounter a bug with this software please open an issue on Github
+<https://github.com/skoved/dice-roll-go/issues>
+
+== Example
+
+The following example rolls an eight sided die twice. +
+$ dice-roll-go 1d8
+
+The following example rolls two six sided dice and drops the lowest roll. +
+$ dice-roll-go --drop 1 2d6
+
+The following example shows how to roll a four sided die once and repeat it three times. +
+$ dice-roll-go --repeat 3 1d4
+
+== Copying
+
+Copyright (C) 2025 {author}. +
+Free use of this software is granted under the terms of the MIT License.
