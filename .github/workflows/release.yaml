@@ -28,6 +28,16 @@ jobs:
           go build -o roll -v ./...
           go test -v ./...
           rm roll
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.4
+      - name: Setup Asciidoctor
+        uses: reitzig/actions-asciidoctor@v2.0.2
+      - name: Regen Manpage
+        run: |
+          set -x
+          asciidoctor -b manpage man/dice-roll-go.adoc
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
         with:
