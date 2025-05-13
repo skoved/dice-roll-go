@@ -79,3 +79,19 @@ jobs:
         run: npm install --global @kt3k/license-checker
       - name: Run License Checker
         run: license_checker
+  regen-manpage:
+    name: Regenerate Manpages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.4
+      - name: Setup Asciidoctor
+        uses: reitzig/actions-asciidoctor@v2.0.2
+      - name: Regen Manpage
+        run: |
+          set -x
+          asciidoctor -b manpage man/dice-roll-go.adoc
