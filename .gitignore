@@ -29,7 +29,3 @@ go.work.sum
 .env
 # Added by goreleaser init:
 dist/
-
-# keep the man pages out of the repo
-man/*
-!man/*.adoc
