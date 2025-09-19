@@ -24,7 +24,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v5
       - name: Setup Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version: stable
       - name: Run go mod tidy
@@ -56,7 +56,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v5
       - name: Setup Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version: stable
       - name: Display Go Version
