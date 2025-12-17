@@ -88,7 +88,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.4.7
+          ruby-version: 3.4.8
       - name: Setup Asciidoctor
         uses: reitzig/actions-asciidoctor@v2.0.2
       - name: Regen Manpage
