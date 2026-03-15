@@ -90,7 +90,7 @@ jobs:
         with:
           ruby-version: 4.0.1
       - name: Setup Asciidoctor
-        uses: reitzig/actions-asciidoctor@v2.0.3
+        uses: reitzig/actions-asciidoctor@v2.0.4
       - name: Regen Manpage
         run: |
           set -x
